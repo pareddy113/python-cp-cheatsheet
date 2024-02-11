@@ -315,6 +315,7 @@ p[0] 'P' # indexing gives items, not lists
 alpha[slice(2,4)] # equivalent to p[2:4]
 p[0:1] # ['P'] Slicing gives lists
 p[0:5] # ['P','y','t','h','o'] Start at beginning and count 5
+p[0:0] # [] None
 p[2:4] = ['t','r'] # Slice assignment  ['P','y','t','r','o','n']
 p[2:4] = ['s','p','a','m'] # Slice assignment can be any size['P','y','s','p','a','m','o','n']
 p[4:4] = ['x','y'] # insert slice ['P','y','t','h','x','y','o','n']
@@ -340,15 +341,30 @@ thistuple = ("apple", "banana", "cherry")
 print(thistuple[1]) # banana
 ```
 
-Can be used with Dicts
+As Lists are mutable, they cannot be added as keys in dict so you have to convert it to tuple to be used with Dicts
 
 ```python
-def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+from collections import defaultdict
+
+def groupAnagrams(strs):
     d = defaultdict(list)
     for w in strs:
         key = tuple(sorted(w))
         d[key].append(w)
     return d.values()
+```
+
+equivalent without using `defaultdict(list)`. The defaultdict version is more concise and eliminates the need for an explicit check to see if the key exists before appending to the associated list.
+
+```
+def groupAnagrams(strs):
+	d = {}
+	for w in strs:
+	    key = tuple(sorted(w))
+	    if key not in d:
+	        d[key] = []
+	    d[key].append(w)
+	return d.values()
 ```
 
 ## Sort
