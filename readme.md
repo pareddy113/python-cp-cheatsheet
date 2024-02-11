@@ -356,7 +356,7 @@ def groupAnagrams(strs):
 
 equivalent without using `defaultdict(list)`. The defaultdict version is more concise and eliminates the need for an explicit check to see if the key exists before appending to the associated list.
 
-```
+```python
 def groupAnagrams(strs):
 	d = {}
 	for w in strs:
